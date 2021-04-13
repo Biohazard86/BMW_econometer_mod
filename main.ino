@@ -16,7 +16,7 @@ https://www.projectsofdan.com/?p=385#comments
 
 
 //Perimeter of the wheel
-#define PERIMETER_WHEEL 1985 //mm
+#define PERIMETER_WHEEL 1985 //mm 205 55 R16
 // In the e36 there are 9 pulses per rev in the rear differential
 #define DIFF_PULSES_PER_REV 9 
 
