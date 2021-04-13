@@ -16,7 +16,7 @@ https://www.projectsofdan.com/?p=385#comments
 
 
 //Perimeter of the wheel
-#define PERIMETER_WHEEL 1985 //mm  205 55 R16
+#define PERIMETER_WHEEL 1985 //mm
 // In the e36 there are 9 pulses per rev in the rear differential
 #define DIFF_PULSES_PER_REV 9 
 
@@ -76,8 +76,8 @@ void loop() {
     frek = pow((time_per_pulse_ms / 1000), -1); // calculates the frecuency 
     // if we *9 the frek we have the frek of the wheel 
     frek = frek * 9;
-    //Frek (hz)(turns per second) * 60 * 60 = turns per hour. Every turn is PERIMETER_WHEEL in mm then divide by 1000000 to show in km
-    actual_speed =  (frek * 60 * 60 * PERIMETER_WHEEL) / 1000000 // calculates the actual speed in km/h
+    //Frek (hz) * 60 * 60 = rounds per hour. Every turn is PERIMETER_WHEEL in mm then divide by 1000000 to show in km
+    actual_speed =  (frek * 60 * 60 * PERIMETER_WHEEL) / 1000000; // calculates the actual speed in km/h
     
       
 
