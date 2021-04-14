@@ -15,8 +15,15 @@ https://www.projectsofdan.com/?p=385#comments
  */
 
 
-//Perimeter of the wheel
-#define PERIMETER_WHEEL 1985 //mm 205 55 R16
+//Perimeter of the wheel, different sizes:
+// You can calculate your own perimeter here:     https://www.calculartodo.com/automovil/dimension-neumatico.php
+
+#define PERIMETER_WHEEL 1985 //mm 205 55 R16 |205 x 55%= 112.75 + (16inch to mm) 40.64= 519.15 
+
+// Injector flow rate (Each inyector)
+//  116.5g/min    171.32cc/min    0.171623L/min   10.26L/h
+#define INJECTOR_FLOW 171  //cc/min
+
 // In the e36 there are 9 pulses per rev in the rear differential
 #define DIFF_PULSES_PER_REV 9 
 
@@ -65,6 +72,18 @@ void speed_fun() {
   }
 //========================================================================================
 
+int injector_pulse_calculator(int actual_speed){}
+
+
+
+
+//========================================================================================
+
+int econometer_show(){
+  // This is what the econometer has to show L/100km
+  return 10;   // For this example we want to show a constant 10 L/100KM
+  }
+//========================================================================================
 void loop() {
   attachInterrupt(0, speed_fun, RISING);  // 0 is pin 2 (only 2 and 3 pins can handle interrupts); calls rpm_fun; RISING to trigger when the pin goes from low to high; 
   
