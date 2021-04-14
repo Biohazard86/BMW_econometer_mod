@@ -72,13 +72,28 @@ void speed_fun() {
   }
 //========================================================================================
 
-int injector_pulse_calculator(int actual_speed){}
+int injector_pulse_calculator(int actual_speed){
+  // Calculate the "emulate" inyector pulse using this form:
+  // Fuel consumption showed on the dash = (L/H * 100)/ speed
+  // As we know all except the L/H aka the inyector pulse duration in HZ (With the FLOW RATE CTE of the inyector)
+  // As a result:
+  // L/H = (Fuel consuption showed * speed) / 100
+  // With the L/H we can calculate the hz of the signal in the inyector.
 
-
-
-
+  int litres_hour;
+  
+  return hz;
+  }
 //========================================================================================
+int litre_hour_to_hz(int litre_hour){
+  // This function converts litres per hour to hz to can calculate the pulses to the econometer
+  int hz_pulse_to_econometer;
+  
 
+  
+  return hz_pulse_to_econometer;
+  }
+//========================================================================================
 int econometer_show(){
   // This is what the econometer has to show L/100km
   return 10;   // For this example we want to show a constant 10 L/100KM
