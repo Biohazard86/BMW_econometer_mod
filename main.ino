@@ -80,24 +80,35 @@ int injector_pulse_calculator(int actual_speed){
   // L/H = (Consumption_dash * actual_speed) / 100
   // With the L/H we can calculate the hz of the signal in the inyector.
 
-  int litres_hour, hz;
+  double litre_hour_injector, hz;  // Vars to save the litres per hour in the inyector and the hz of the injector.
 
-  
-  
-  return litre_hour_to_hz(litres_hour);
+  litre_hour_injector = ( econometer_show() * actual_speed ) / 100;
+  // And we calculate the hz in the injector to dash signal
+  return litre_hour_to_hz(litre_hour_injector);
   }
-//========================================================================================
-int litre_hour_to_hz(int litre_hour){
-  // This function converts litres per hour to hz to can calculate the pulses to the econometer
-  int hz_pulse_to_econometer;
   
+//========================================================================================
 
+int litre_hour_to_hz(int litre_hour_injector){
+  // This function converts litres per hour to hz to can calculate the pulses to the econometer to emulate whatever we want in the econometer
+  int hz_pulse_to_econometer; // hz to send to the econometer
+  double cc_min_injector, duty_cycle;   // cc/min request to show in the econometer and the duty cycle in the inyectors
+  // L/H *1000 / 60 = cc/min 
+  cc_min_injector =  litre_hour_injector *1000 / 60;
+
+  // Whe use the % duty cycle 
+
+  
   
   return hz_pulse_to_econometer;
   }
 //========================================================================================
-int econometer_show(){
-  // This is what the econometer has to show L/100km
+double econometer_show(){
+  // This is what the econometer has to show L/100km 
+  // Put here whatever you want. 
+  // Oil presure
+  // Boost presure
+  // Oil temp.
   return 10;   // For this example we want to show a constant 10 L/100KM
   }
 //========================================================================================
