@@ -74,15 +74,15 @@ void speed_fun() {
 
 int injector_pulse_calculator(int actual_speed){
   // Calculate the "emulate" inyector pulse using this form:
-  // Fuel consumption showed on the dash = (L/H * 100)/ speed
+  // Fuel consumption showed on the dash = (L/H / Km/H) *100
   // As we know all except the L/H aka the inyector pulse duration in HZ (With the FLOW RATE CTE of the inyector)
   // As a result:
-  // L/H = (Fuel consuption showed * speed) / 100
+  // L/H = (Consumption_dash * actual_speed) / 100
   // With the L/H we can calculate the hz of the signal in the inyector.
 
   int litres_hour, hz;
 
-  litres_hour = (econometer_show() * actual_speed) / 100;
+  
   
   return litre_hour_to_hz(litres_hour);
   }
