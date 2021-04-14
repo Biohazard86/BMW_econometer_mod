@@ -80,9 +80,11 @@ int injector_pulse_calculator(int actual_speed){
   // L/H = (Fuel consuption showed * speed) / 100
   // With the L/H we can calculate the hz of the signal in the inyector.
 
-  int litres_hour;
+  int litres_hour, hz;
+
+  litres_hour = (econometer_show() * actual_speed) / 100;
   
-  return hz;
+  return litre_hour_to_hz(litres_hour);
   }
 //========================================================================================
 int litre_hour_to_hz(int litre_hour){
