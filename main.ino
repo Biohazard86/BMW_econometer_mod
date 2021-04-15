@@ -41,7 +41,7 @@ volatile bool flag = false;
 unsigned int time_1 = 0;
 unsigned int time_2 = 0;
 double frek = 0;
-
+double cc_min_injector;
 // For the square generator
 unsigned int time_generator_1 = 0;
 unsigned int time_generator_2 = 0;
@@ -99,7 +99,7 @@ int injector_pulse_calculator(int actual_speed){
 int litre_hour_to_hz(int litre_hour_injector){
   // This function converts litres per hour to hz to can calculate the pulses to the econometer to emulate whatever we want in the econometer
   double hz_pulse_to_econometer;          // hz to send to the econometer
-  double cc_min_injector, period_signal;   // cc/min request to show in the econometer and period is the period of the signal sended to the econometer
+  double period_signal;   // cc/min request to show in the econometer and period is the period of the signal sended to the econometer
   // L/H *1000 / 60 = cc/min 
   cc_min_injector =  litre_hour_injector *1000 / 60;
 
@@ -128,8 +128,13 @@ double square_wave_generator(double period){
     // Is called in every loop
     // Only Generate a new square if the flag_generator is true
 
+    int duty_cyle;
+  
+    // duty cicle 
+    // duty_cycle = cc_min_injector / 
+
     
-    if(flag_generator){
+    if( (flag_generator) && (time_generator_2 > ( micros() + 200) ) ){    // To not enter here at leats 200micro seconds later
         flag_generator = false;
         digitalWrite(signal_to_econometer, HIGH);
         time_generator_1 = micros();  
@@ -138,6 +143,7 @@ double square_wave_generator(double period){
      if(micros() >= (time_generator_1 + ( period*1000000 ) ) ){
         digitalWrite(signal_to_econometer, LOW);
         flag_generator = true;
+        time_generator_2 = micros(); 
       }
     
    
