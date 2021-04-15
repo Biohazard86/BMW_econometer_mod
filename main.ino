@@ -29,6 +29,8 @@ https://www.projectsofdan.com/?p=385#comments
 
 // Define the pins
 const int input_pin_speed = 2;
+const int signal_to_econometer = 5;
+
 
 // Vars
 int actual_speed = 0;
@@ -40,6 +42,11 @@ unsigned int time_1 = 0;
 unsigned int time_2 = 0;
 double frek = 0;
 
+// For the square generator
+unsigned int time_generator_1 = 0;
+unsigned int time_generator_2 = 0;
+volatile bool flag_generator = false;
+
 
 
 
@@ -47,7 +54,7 @@ double frek = 0;
 void setup() {
   Serial.begin(9600);   //Serial port
   pinMode(input_pin_speed, INPUT);  //We define the pin 2 called input_pin_speed as an input
-
+  pinMode(signal_to_econometer, OUTPUT);
   // Serial output
   Serial.print("\n\n\n---------------------------------------------\n");
   Serial.print("    ECONOMETER MOD FOR BMW\n");
@@ -91,14 +98,16 @@ int injector_pulse_calculator(int actual_speed){
 
 int litre_hour_to_hz(int litre_hour_injector){
   // This function converts litres per hour to hz to can calculate the pulses to the econometer to emulate whatever we want in the econometer
-  int hz_pulse_to_econometer; // hz to send to the econometer
-  double cc_min_injector, duty_cycle;   // cc/min request to show in the econometer and the duty cycle in the inyectors
+  double hz_pulse_to_econometer;          // hz to send to the econometer
+  double cc_min_injector, period_signal;   // cc/min request to show in the econometer and period is the period of the signal sended to the econometer
   // L/H *1000 / 60 = cc/min 
   cc_min_injector =  litre_hour_injector *1000 / 60;
 
-  // Whe use the % duty cycle 
+  // period(T) = 1 / hz    (period is peak to peak f.example)
+  // T = cc_min_injector / INJECTOR_FLOW
+  // T is the time in seg 
 
-  
+  period_signal = cc_min_injector / INJECTOR_FLOW;
   
   return hz_pulse_to_econometer;
   }
@@ -110,6 +119,29 @@ double econometer_show(){
   // Boost presure
   // Oil temp.
   return 10;   // For this example we want to show a constant 10 L/100KM
+  }
+//========================================================================================
+
+//========================================================================================
+double square_wave_generator(double period){
+    // This function creates a square wave to get in the econometer
+    // Is called in every loop
+    // Only Generate a new square if the flag_generator is true
+
+    
+    if(flag_generator){
+        flag_generator = false;
+        digitalWrite(signal_to_econometer, HIGH);
+        time_generator_1 = micros();  
+      }
+
+     if(micros() >= (time_generator_1 + ( period*1000000 ) ) ){
+        digitalWrite(signal_to_econometer, LOW);
+        flag_generator = true;
+      }
+    
+   
+  
   }
 //========================================================================================
 void loop() {
