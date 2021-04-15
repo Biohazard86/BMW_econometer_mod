@@ -123,8 +123,9 @@ double econometer_show(){
 //========================================================================================
 
 //========================================================================================
-double square_wave_generator(double period){
+void square_wave_generator_pulse_duration(double period){
     // This function creates a square wave to get in the econometer
+    // Is based on the pulse duratin with a pause of 200us  
     // Is called in every loop
     // Only Generate a new square if the flag_generator is true
 
@@ -134,7 +135,7 @@ double square_wave_generator(double period){
     // duty_cycle = cc_min_injector / 
 
     
-    if( (flag_generator) && (time_generator_2 > ( micros() + 200) ) ){    // To not enter here at leats 200micro seconds later
+    if( (flag_generator) && (time_generator_2 > ( micros() + 200) ) ){    // To not enter here at leats 200u sec later
         flag_generator = false;
         digitalWrite(signal_to_econometer, HIGH);
         time_generator_1 = micros();  
